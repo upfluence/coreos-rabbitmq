@@ -1,0 +1,10 @@
+[Unit]
+Description=RabbitMQ cluster exposition in %i environmnent
+After=docker.service
+
+[Service]
+User=core
+TimeoutStartSec=0
+EnvironmentFile=/etc/environment
+ExecStart=/bin/bash -c 'while true; do /usr/bin/etcdctl set /environments/%i/RABBITMQ_URL `etcdctl ls /rabbitmq | xargs -L1 etcdctl get | sort | head -1 | awk \'{ print  "amqp://guest:guest@"$0":5672/%2f" }\'` --ttl 60; sleep 45; done'
+ExecStop=/usr/bin/etcdctl rm /environment/%i/RABBITMQ_URL
