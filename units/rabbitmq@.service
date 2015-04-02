@@ -1,0 +1,26 @@
+[Unit]
+Description=RabbitMQ
+After=docker.service
+Wants=rabbitmq-discovery@%i.service
+Before=rabbitmq-discovery@%i.service
+
+[Service]
+User=core
+TimeoutStartSec=0
+EnvironmentFile=/etc/environment
+ExecStartPre=-/usr/bin/docker kill %p-%i
+ExecStartPre=-/usr/bin/docker rm %p-%i
+ExecStartPre=/usr/bin/docker pull upfluence/rabbitmq:latest
+
+ExecStart=/usr/bin/docker run --name %p-%i \
+            -h %H \
+            -p 5672:5672 \
+            -p 4369:4369 \
+            -p 15672:15672 \
+            -p 25672:25672\
+             upfluence/rabbitmq:latest
+
+ExecStop=-/usr/bin/docker rm -f %p-%i
+
+[X-Fleet]
+Conflicts=rabbitmq@*
