@@ -33,6 +33,8 @@ EXPOSE 5672
 ENV RABBITMQ_MNESIA_BASE /data/mnesia
 ENV RABBITMQ_SERVER_START_ARGS -eval error_logger:tty(true).
 
+RUN rabbitmq-plugins enable rabbitmq_management
+
 VOLUME ["/data/mnesia"]
 
 CMD ["/run.sh"]
