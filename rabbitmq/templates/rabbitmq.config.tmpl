@@ -1,0 +1,11 @@
+%% -*- mode: erlang -*-
+{{$dirs := ls "/rabbitmq"}}
+{{$count := len $dirs}}
+[
+  {rabbit,
+    [
+      {loopback_users, []},
+      {{if gt $count 0}}{cluster_nodes, {['rabbit@{{join $dirs "','rabbit@"}}'], disc}}{{else}}{cluster_nodes, {[], disc}}{{end}}
+    ]
+  }
+].
