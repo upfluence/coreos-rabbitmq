@@ -2,5 +2,5 @@
 src = "rabbitmq.config.tmpl"
 dest = "/etc/rabbitmq/rabbitmq.config"
 keys = [
-  "/rabbitmq"
+  "/discovery/rabbitmq"
 ]
