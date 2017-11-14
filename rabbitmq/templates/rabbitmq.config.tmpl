@@ -5,7 +5,7 @@
   {rabbit,
     [
       {loopback_users, []},
-      {log_levels, [{connection, debug}, {channel, debug}, {mirroring, debug}]},
+      [{vm_memory_high_watermark, 0.8},
       {cluster_partition_handling, autoheal},
       {{if gt $count 0}}{cluster_nodes, {['rabbit@{{join $dirs "','rabbit@"}}'], disc}}{{else}}{cluster_nodes, {[], disc}}{{end}}
     ]
