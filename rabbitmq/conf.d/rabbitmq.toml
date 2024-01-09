@@ -1,6 +1,0 @@
-[template]
-src = "rabbitmq.config.tmpl"
-dest = "/etc/rabbitmq/rabbitmq.config"
-keys = [
-  "/discovery/rabbitmq"
-]
